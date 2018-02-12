@@ -223,7 +223,7 @@ public class SparseMatrix
 	        for(int i = 0; i < numRows; ++ i) {
 	        		entries.add(null);
 	        }
-	        System.out.print(entries);
+	        
 	        while(sc.hasNextInt())
 	        {
 	        		// Read the row index, column index, and value of an element
@@ -233,8 +233,10 @@ public class SparseMatrix
 	        		
 	        		// Add your code here to add the element into data member entries
                     //entries
+                    entries.get(row).get(col).set(val);
+                    System.out.println(row + " | "+ col + " | "+ val);
 	        }
-	        
+	        print();
 	        // Add your code here if approparite
         }
         catch (Exception e) {
