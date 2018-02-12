@@ -1,4 +1,6 @@
 /* Put your student number and name here
+1640210
+Ieva Zadeikyte
  *
  * Optionally, if you have any comments regarding your submission, put them here. 
  * For instance, specify here if your program does not generate the proper output or does not do it in the correct manner.
@@ -221,7 +223,7 @@ public class SparseMatrix
 	        for(int i = 0; i < numRows; ++ i) {
 	        		entries.add(null);
 	        }
-	        
+	        System.out.print(entries);
 	        while(sc.hasNextInt())
 	        {
 	        		// Read the row index, column index, and value of an element
@@ -230,6 +232,7 @@ public class SparseMatrix
 	        		int val = sc.nextInt();
 	        		
 	        		// Add your code here to add the element into data member entries
+                    //entries
 	        }
 	        
 	        // Add your code here if approparite
@@ -297,24 +300,29 @@ public class SparseMatrix
     public SparseMatrix add(SparseMatrix M)
     {
     		// Add your code here
+        return M;
     }
     
     // Transposing a matrix
     public SparseMatrix transpose()
     {
 		// Add your code here
+
+        return null;
     }
     
     // Matrix-vector multiplication
     public DenseVector multiply(DenseVector v)
     {
     		// Add your code here
+        return v;
     }
     
     // Count the number of non-zeros
     public int numNonZeros()
     {
     		// Add your code here
+        return 0;
     }
     
     // Multiply the matrix by a scalar, and update the matrix elements
