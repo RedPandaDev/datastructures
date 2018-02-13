@@ -233,7 +233,11 @@ public class SparseMatrix
 	        		
 	        		// Add your code here to add the element into data member entries
                     //entries
-                    entries.get(row).get(col).set(val);
+
+                    // this gets the correct value how to add it tho?
+                    Entry member = new Entry(col,val);
+                    //System.out.println(member.getValue());
+                    entries.get(row).add(member);
                     System.out.println(row + " | "+ col + " | "+ val);
 	        }
 	        print();
