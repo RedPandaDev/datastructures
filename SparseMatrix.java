@@ -234,18 +234,25 @@ public class SparseMatrix
 	        		// Add your code here to add the element into data member entries
                     //entries
 
-                    // this gets the correct value how to add it tho?
+                    // this gets the correct value as an entry how to add it tho?
                     Entry member = new Entry(col,val);
-                    Entry blank = new Entry(col,0);
-                    //System.out.println(member.getValue());
-                    //entries.get(row).add(member);
-                    ArrayList<Entry> currentRow = entries.get(row);
+
+                    // We have number of colums numCols and
+                    // entries = new ArrayList< ArrayList<Entry> >();
+                    
+                    ArrayList<Entry> cr = new ArrayList();
+                    //cr = entries.get(row);
                     for (int i = 0; i < numCols; i++){
-                        currentRow.add(blank);
+                        Entry blank = new Entry(i,0);
+                        if (i == col){
+                            cr.add(member);
+                        }
+                        else{
+                            cr.add(blank);
+                        }
                     }
                     //currentRow.add(member);
-                    // System.out.println(currentRow);
-                    System.out.println(currentRow == null);
+                    entries.set(row,cr);
                     System.out.println(row + " | "+ col + " | "+ val);
 
 	        }
