@@ -236,9 +236,18 @@ public class SparseMatrix
 
                     // this gets the correct value how to add it tho?
                     Entry member = new Entry(col,val);
+                    Entry blank = new Entry(col,0);
                     //System.out.println(member.getValue());
-                    entries.get(row).add(member);
+                    //entries.get(row).add(member);
+                    ArrayList<Entry> currentRow = entries.get(row);
+                    for (int i = 0; i < numCols; i++){
+                        currentRow.add(blank);
+                    }
+                    //currentRow.add(member);
+                    // System.out.println(currentRow);
+                    System.out.println(currentRow == null);
                     System.out.println(row + " | "+ col + " | "+ val);
+
 	        }
 	        print();
 	        // Add your code here if approparite
