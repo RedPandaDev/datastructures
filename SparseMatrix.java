@@ -219,9 +219,9 @@ public class SparseMatrix
 	        int numRows = sc.nextInt();
 	        numCols = sc.nextInt();
 	        entries = new ArrayList< ArrayList<Entry> >();
-            ArrayList<Integer> lastRow = new ArrayList();
-            ArrayList<Integer> lastCol = new ArrayList();
-            ArrayList<Integer> lastVal = new ArrayList();
+            ArrayList<Integer> allRow = new ArrayList();
+            ArrayList<Integer> allCol = new ArrayList();
+            ArrayList<Integer> allVal = new ArrayList();
             int step = 0;
 
 	        
@@ -246,22 +246,32 @@ public class SparseMatrix
                     // entries = new ArrayList< ArrayList<Entry> >();
                     
 
-                    lastCol.add(col);
-                    lastRow.add(row);
-                    lastVal.add(val);
+                    allCol.add(col);
+                    allRow.add(row);
+                    allVal.add(val);
                     step++;
 
 
 	        }
 	        // Add your code here if approparite
-            for (int loopstart = 0; loopstart < lastCol.size(); loopstart++){
-                
+            int lastRow = -1;
+            int fromCol = 0;
+            for (int loopstart = 0; loopstart < allCol.size(); loopstart++){
+                fromCol = -1;
+                int newCol = allCol.get(loopstart);
                 ArrayList<Entry> cr = new ArrayList();
+                System.out.println("last row " + lastRow +" new row " + allRow.get(loopstart));
+                if (lastRow == allRow.get(loopstart)){
+                    cr = entries.get(lastRow);
+                    fromCol = allCol.get(loopstart-1);
 
-                for (int i = 0; i <= lastCol.get(loopstart); i++){
+                }
+
+
+                for (int i = fromCol+1; i <= newCol; i++){
                     Entry blank = new Entry(i,0);
-                    if (i == lastCol.get(loopstart)){
-                        Entry member = new Entry(i,lastVal.get(loopstart));
+                    if (i == newCol){
+                        Entry member = new Entry(i,allVal.get(loopstart));
                         cr.add(member);
                     }
                     else{
@@ -269,7 +279,8 @@ public class SparseMatrix
                     }
         
                 }
-                entries.set(lastRow.get(loopstart),cr);
+                lastRow = allRow.get(loopstart);
+                entries.set(lastRow,cr);
             }
 
         }
