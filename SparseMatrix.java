@@ -260,7 +260,6 @@ public class SparseMatrix
                 fromCol = -1;
                 int newCol = allCol.get(loopstart);
                 ArrayList<Entry> cr = new ArrayList();
-                System.out.println("last row " + lastRow +" new row " + allRow.get(loopstart));
                 if (lastRow == allRow.get(loopstart)){
                     cr = entries.get(lastRow);
                     fromCol = allCol.get(loopstart-1);
