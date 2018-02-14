@@ -219,6 +219,10 @@ public class SparseMatrix
 	        int numRows = sc.nextInt();
 	        numCols = sc.nextInt();
 	        entries = new ArrayList< ArrayList<Entry> >();
+            ArrayList<Integer> lastRow = new ArrayList();
+            ArrayList<Integer> lastCol = new ArrayList();
+            ArrayList<Integer> lastVal = new ArrayList();
+
 	        
 	        for(int i = 0; i < numRows; ++ i) {
 	        		entries.add(null);
@@ -235,28 +239,46 @@ public class SparseMatrix
                     //entries
 
                     // this gets the correct value as an entry how to add it tho?
-                    Entry member = new Entry(col,val);
+
 
                     // We have number of colums numCols and
                     // entries = new ArrayList< ArrayList<Entry> >();
                     
                     ArrayList<Entry> cr = new ArrayList();
-                    //cr = entries.get(row);
-                    for (int i = 0; i < numCols; i++){
-                        Entry blank = new Entry(i,0);
-                        if (i == col){
-                            cr.add(member);
+
+                    if (lastRow == row){
+                        for (int i = 0; i <= col; i++){
+                            Entry blank = new Entry(i,0);
+                            if (i == col){
+                                Entry member = new Entry(i,val);
+                                cr.add(member);
+                            }else if (i == lastCol) {
+                                Entry member = new Entry(i,lastVal);
+                                cr.add(member);                                
+                            }
+                            else{
+                                cr.add(blank);
+                            }
                         }
-                        else{
-                            cr.add(blank);
+                    }else{
+                        for (int i = 0; i <= col; i++){
+                            Entry blank = new Entry(i,0);
+                            if (i == col){
+                                Entry member = new Entry(i,val);
+                                cr.add(member);
+                            }
+                            else{
+                                cr.add(blank);
+                            }
                         }
                     }
-                    //currentRow.add(member);
+                    lastCol.add(col);
+                    lastRow.add(row);
+                    lastVal.add(val);
                     entries.set(row,cr);
                     System.out.println(row + " | "+ col + " | "+ val);
 
 	        }
-	        print();
 	        // Add your code here if approparite
         }
         catch (Exception e) {
