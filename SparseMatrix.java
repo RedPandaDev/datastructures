@@ -222,6 +222,7 @@ public class SparseMatrix
             ArrayList<Integer> lastRow = new ArrayList();
             ArrayList<Integer> lastCol = new ArrayList();
             ArrayList<Integer> lastVal = new ArrayList();
+            int step = 0;
 
 	        
 	        for(int i = 0; i < numRows; ++ i) {
@@ -244,42 +245,33 @@ public class SparseMatrix
                     // We have number of colums numCols and
                     // entries = new ArrayList< ArrayList<Entry> >();
                     
-                    ArrayList<Entry> cr = new ArrayList();
 
-                    if (lastRow == row){
-                        for (int i = 0; i <= col; i++){
-                            Entry blank = new Entry(i,0);
-                            if (i == col){
-                                Entry member = new Entry(i,val);
-                                cr.add(member);
-                            }else if (i == lastCol) {
-                                Entry member = new Entry(i,lastVal);
-                                cr.add(member);                                
-                            }
-                            else{
-                                cr.add(blank);
-                            }
-                        }
-                    }else{
-                        for (int i = 0; i <= col; i++){
-                            Entry blank = new Entry(i,0);
-                            if (i == col){
-                                Entry member = new Entry(i,val);
-                                cr.add(member);
-                            }
-                            else{
-                                cr.add(blank);
-                            }
-                        }
-                    }
                     lastCol.add(col);
                     lastRow.add(row);
                     lastVal.add(val);
-                    entries.set(row,cr);
-                    System.out.println(row + " | "+ col + " | "+ val);
+                    step++;
+
 
 	        }
 	        // Add your code here if approparite
+            for (int loopstart = 0; loopstart < lastCol.size(); loopstart++){
+                
+                ArrayList<Entry> cr = new ArrayList();
+
+                for (int i = 0; i <= lastCol.get(loopstart); i++){
+                    Entry blank = new Entry(i,0);
+                    if (i == lastCol.get(loopstart)){
+                        Entry member = new Entry(i,lastVal.get(loopstart));
+                        cr.add(member);
+                    }
+                    else{
+                        cr.add(blank);
+                    }
+        
+                }
+                entries.set(lastRow.get(loopstart),cr);
+            }
+
         }
         catch (Exception e) {
             e.printStackTrace();
