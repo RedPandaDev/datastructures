@@ -337,8 +337,43 @@ public class SparseMatrix
     
     // Adding two matrices  
     public SparseMatrix add(SparseMatrix M)
-    {
-    		// Add your code here
+    {   // print() prints the first array if you do M.print() prints second array.
+        int numRows = entries.size();
+        for(int i = 0; i < numRows; i++)
+        {
+            ArrayList<Entry> currentRow1 = entries.get(i);
+            ArrayList<Entry> currentRow2 = M.entries.get(i);
+            int currentCol = -1, entryIdx = -1;
+            if(currentRow1 != null && (!currentRow1.isEmpty())) {
+                entryIdx = 0;
+                currentCol = currentRow1.get(entryIdx).getColumn();
+            }
+            
+            for(int j = 0;  j < numCols; ++ j) {
+                if(j == currentCol) {
+                    int value1 = 0;
+                    int value2 = 0;
+                    if (currentRow1.get(entryIdx) != null){
+                         value1 = currentRow1.get(entryIdx).getValue();
+                    }
+                    if (currentRow2.get(entryIdx) != null){
+                         value1 = currentRow2.get(entryIdx).getValue();
+                    }
+                    if (value1 != 0 || value2 != 0){
+                        int added = value1 + value2;
+                        Entry newValue = new Entry(entryIdx, added);
+                        currentRow2.set(entryIdx,newValue);
+
+                        entryIdx++;
+                        currentCol = (entryIdx < currentRow1.size()) ? currentRow1.get(entryIdx).getColumn() : (-1); 
+                    }
+                    
+                }
+            }
+
+        }
+
+
         return M;
     }
     
