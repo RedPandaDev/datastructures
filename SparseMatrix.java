@@ -373,9 +373,12 @@ public class SparseMatrix
             
             for(int j = 0;  j < numCols; ++ j) {
                 if(j == currentCol) {
+                    if (currentRow.get(entryIdx).getValue() != 0){
+                        numNoZero++;
+                    }
                     entryIdx++;
                     currentCol = (entryIdx < currentRow.size()) ? currentRow.get(entryIdx).getColumn() : (-1); 
-                    numNoZero++;
+                    
                 }
             }
 
