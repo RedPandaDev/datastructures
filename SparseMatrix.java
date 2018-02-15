@@ -239,13 +239,6 @@ public class SparseMatrix
 	        		// Add your code here to add the element into data member entries
                     //entries
 
-                    // this gets the correct value as an entry how to add it tho?
-
-
-                    // We have number of colums numCols and
-                    // entries = new ArrayList< ArrayList<Entry> >();
-                    
-
                     allCol.add(col);
                     allRow.add(row);
                     allVal.add(val);
@@ -367,8 +360,27 @@ public class SparseMatrix
     // Count the number of non-zeros
     public int numNonZeros()
     {
-    		// Add your code here
-        return 0;
+        int numNoZero = 0;
+        int numRows = entries.size();
+        for(int i = 0; i < numRows; i++)
+        {
+            ArrayList<Entry> currentRow = entries.get(i);
+            int currentCol = -1, entryIdx = -1;
+            if(currentRow != null && (!currentRow.isEmpty())) {
+                entryIdx = 0;
+                currentCol = currentRow.get(entryIdx).getColumn();
+            }
+            
+            for(int j = 0;  j < numCols; ++ j) {
+                if(j == currentCol) {
+                    entryIdx++;
+                    currentCol = (entryIdx < currentRow.size()) ? currentRow.get(entryIdx).getColumn() : (-1); 
+                    numNoZero++;
+                }
+            }
+
+        }
+        return numNoZero;
     }
     
     // Multiply the matrix by a scalar, and update the matrix elements
