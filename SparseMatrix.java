@@ -204,6 +204,33 @@ public class SparseMatrix
         		System.out.println("Matrix-vector multiplication:");
         		mv.print();
         }
+        // Remove !!!
+        else if(args[0].equals("-add"))
+        {
+                if(args.length != 3) {
+                    printCommandError();
+                    System.exit(-1);
+                }
+                
+                SparseMatrix mat1 = new SparseMatrix();
+                mat1.loadEntries(args[1]);
+                System.out.println("Read matrix 1 from " + args[1]);
+                System.out.println("Matrix elements:");
+                mat1.print();
+                
+                System.out.println();
+                SparseMatrix mat2 = new SparseMatrix();
+                mat2.loadEntries(args[2]);
+                System.out.println("Read matrix 2 from " + args[2]);
+                System.out.println("Matrix elements:");
+                mat2.print();
+                SparseMatrix mat_sum1 = mat1.add(mat2);
+                
+                System.out.println("Matrix1 + Matrix2 =");
+                mat_sum1.print();
+                System.out.println();
+            }
+            //End remove
     }
 
     
@@ -339,8 +366,10 @@ public class SparseMatrix
     public SparseMatrix add(SparseMatrix M)
     {   // print() prints the first array if you do M.print() prints second array.
         int numRows = entries.size();
+        System.out.println("numRows " + numRows);
         for(int i = 0; i < numRows; i++)
         {
+
             ArrayList<Entry> currentRow1 = entries.get(i);
             ArrayList<Entry> currentRow2 = M.entries.get(i);
             int currentCol = -1;
