@@ -371,15 +371,25 @@ public class SparseMatrix
     // Adding two matrices  
     public SparseMatrix add(SparseMatrix M)
     {   // print() prints the first array if you do M.print() prints second array.
-        SparseMatrix tempMatrix = M;
+        SparseMatrix tempMatrix = new SparseMatrix();
+        System.out.println(tempMatrix == M);
+
+        tempMatrix=M;
+        System.out.println(tempMatrix == M);
+
+        int r = entries.size();
+        for(int i = 0; i < r; i++)
+        {
+            ArrayList<Entry> currentRow1 = M.entries.get(i);
+            
+        }
 
         int numRows = entries.size();
-        System.out.println("numRows " + numRows);
         for(int i = 0; i < numRows; i++)
         {
 
             ArrayList<Entry> currentRow1 = entries.get(i);
-            ArrayList<Entry> currentRow2 = tempMatrix.entries.get(i);
+            ArrayList<Entry> currentRow2 = M.entries.get(i);
             int currentCol = -1;
             if(currentRow1 != null && (!currentRow1.isEmpty())) {
                 currentCol = currentRow1.get(i).getColumn();
