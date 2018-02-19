@@ -225,9 +225,15 @@ public class SparseMatrix
                 System.out.println("Matrix elements:");
                 mat2.print();
                 SparseMatrix mat_sum1 = mat1.add(mat2);
+                System.out.println("Matrix1 + Matrix2 =");
+                mat_sum1.print();
+                SparseMatrix mat_sum2 = mat1.add(mat2);
                 
                 System.out.println("Matrix1 + Matrix2 =");
                 mat_sum1.print();
+                System.out.println();
+                System.out.println("(Matrix1 + Matrix2)+m2 =");
+                mat_sum2.print();
                 System.out.println();
             }
             //End remove
@@ -365,13 +371,15 @@ public class SparseMatrix
     // Adding two matrices  
     public SparseMatrix add(SparseMatrix M)
     {   // print() prints the first array if you do M.print() prints second array.
+        SparseMatrix tempMatrix = M;
+
         int numRows = entries.size();
         System.out.println("numRows " + numRows);
         for(int i = 0; i < numRows; i++)
         {
 
             ArrayList<Entry> currentRow1 = entries.get(i);
-            ArrayList<Entry> currentRow2 = M.entries.get(i);
+            ArrayList<Entry> currentRow2 = tempMatrix.entries.get(i);
             int currentCol = -1;
             if(currentRow1 != null && (!currentRow1.isEmpty())) {
                 currentCol = currentRow1.get(i).getColumn();
@@ -396,11 +404,11 @@ public class SparseMatrix
                     currentRow2.set(j,newValue);
                 }       
             }
-            M.entries.set(i,currentRow2);
+            tempMatrix.entries.set(i,currentRow2);
         }
 
 
-        return M;
+        return tempMatrix;
     }
     
     // Transposing a matrix
