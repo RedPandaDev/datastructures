@@ -249,32 +249,31 @@ public class SparseMatrix
 	        // Add your code here if approparite
             int lastRow = -1;
             int fromCol = 0;
-            for (int loopstart = 0; loopstart < allCol.size(); loopstart++){
-                fromCol = -1;
-                int newCol = allCol.get(loopstart);
+            int maxCols = numColumns();
+            int maxRows = numRows();
+            for (int rowMax = 0; rowMax < maxRows; rowMax++){
                 ArrayList<Entry> cr = new ArrayList();
-                if (lastRow == allRow.get(loopstart)){
-                    cr = entries.get(lastRow);
-                    fromCol = allCol.get(loopstart-1);
-
+                for (int colsMax = 0; colsMax < maxCols; colsMax++){
+                    Entry blank = new Entry(colsMax,0);
+                    cr.add(blank);
                 }
-            
-
-
-                for (int i = fromCol+1; i <= newCol; i++){
-                    Entry blank = new Entry(i,0);
-                    if (i == newCol){
-                        Entry member = new Entry(i,allVal.get(loopstart));
-                        cr.add(member);
-                    }
-                    else{
-                        cr.add(blank);
-                    }
-        
-                }
-                lastRow = allRow.get(loopstart);
-                entries.set(lastRow,cr);
+                entries.set(rowMax,cr);
             }
+
+
+            for (int loopstart = 0; loopstart < allCol.size(); loopstart++){
+                int rowVal = allRow.get(loopstart);
+                int colVal = allCol.get(loopstart);
+                int valVal = allVal.get(loopstart);
+
+                Entry member = new Entry(colVal,valVal);
+                ArrayList<Entry> cr = new ArrayList();
+                cr = entries.get(rowVal);
+
+                cr.set(colVal,member);
+                entries.set(rowVal,cr);           
+
+                }  
 
         }
         catch (Exception e) {
@@ -355,15 +354,12 @@ public class SparseMatrix
                 int added = 0;
                 if (currentRow1.get(j) != null){
                      value1 = currentRow1.get(j).getValue();
-                     System.out.println(j + " 1: " + value1);
                 }
                 if (currentRow2.get(j) != null){
                      value1 = currentRow2.get(j).getValue();
-                     System.out.println(j + " 2: " + value2);
                 }
                 if (value1 != 0 || value2 != 0){
                     added = (value1) + (value2);
-                    System.out.println(j + " 3: " + added);
                     Entry newValue = new Entry(j, (added));
                     currentRow2.set(j,newValue);
                 }       
