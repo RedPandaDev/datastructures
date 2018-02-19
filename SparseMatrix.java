@@ -348,22 +348,26 @@ public class SparseMatrix
                 currentCol = currentRow1.get(i).getColumn();
             }
             
-            for(int j = 0;  j < numCols; ++ j) {
+            for(int j = 0;  j < numCols; j++) {
                 int value1 = 0;
                 int value2 = 0;
                 int added = 0;
+                //System.out.println(j);
                 if (currentRow1.get(j) != null){
-                     value1 = currentRow1.get(j).getValue();
+                    value1 = currentRow1.get(j).getValue();
                 }
                 if (currentRow2.get(j) != null){
-                     value1 = currentRow2.get(j).getValue();
+                     value2 = currentRow2.get(j).getValue();
                 }
                 if (value1 != 0 || value2 != 0){
                     added = (value1) + (value2);
+                    //System.out.println(value1+" + "+value2+" = "+added);
                     Entry newValue = new Entry(j, (added));
+
                     currentRow2.set(j,newValue);
                 }       
             }
+            M.entries.set(i,currentRow2);
         }
 
 
