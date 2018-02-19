@@ -258,16 +258,7 @@ public class SparseMatrix
                     fromCol = allCol.get(loopstart-1);
 
                 }
-                else if (lastRow >=0){
-                    fromCol = allCol.get(loopstart-1);
-                    if(fromCol < allCol.size() && fromCol > 0){
-                        for (int i = fromCol+1; i <= allCol.size(); i++){
-                            Entry blank = new Entry(i,0);
-                            cr.add(blank);
-                            }     
-                    }
-                    fromCol =0;
-                }
+            
 
 
                 for (int i = fromCol+1; i <= newCol; i++){
@@ -361,17 +352,19 @@ public class SparseMatrix
             for(int j = 0;  j < numCols; ++ j) {
                 int value1 = 0;
                 int value2 = 0;
+                int added = 0;
                 if (currentRow1.get(j) != null){
                      value1 = currentRow1.get(j).getValue();
-                     System.out.println(value1);
+                     System.out.println(j + " 1: " + value1);
                 }
                 if (currentRow2.get(j) != null){
                      value1 = currentRow2.get(j).getValue();
-                     System.out.println(value2);
+                     System.out.println(j + " 2: " + value2);
                 }
                 if (value1 != 0 || value2 != 0){
-                    int added = value1 + value2;
-                    Entry newValue = new Entry(j, added);
+                    added = (value1) + (value2);
+                    System.out.println(j + " 3: " + added);
+                    Entry newValue = new Entry(j, (added));
                     currentRow2.set(j,newValue);
                 }       
             }
