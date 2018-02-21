@@ -388,38 +388,58 @@ public class SparseMatrix
             if(currentRow2 != null && (!currentRow2.isEmpty())) {
                 size2 = currentRow2.size();
             }
-            
-            for(int j = 0;  j < size1; j++) {
                 int value1 = 0;
                 int value2 = 0;
                 int added = 0;
                 int colValue1 = 0;
                 int colValue2 = 0;
-          
+            
+            for(int j = 0;  j < size1; j++) {
+                currentCol = currentRow1.get(j).getColumn();
+                added = currentRow1.get(j).getValue();
+                Entry newValue = new Entry(currentCol, added);
+                cr.add(newValue);
+            }
+            
+            tempMatrix.entries.set(i,cr);
 
-                colValue1 = currentRow1.get(j).getColumn();
-                for(int k = 0;  k < size2; k++) {
+            for(int k = 0;  k < size2; k++) {
+                for (int l = 0; l< size1 ; l++ ) {
+                    cr = tempMatrix.entries.get(i);
+                
+                    colValue1 = currentRow1.get(l).getColumn();
                     colValue2 = currentRow2.get(k).getColumn();
                     
                     if (colValue1 == colValue2) {
-                        value1 = currentRow1.get(j).getValue();
+                        value1 = currentRow1.get(l).getValue();
                         value2 = currentRow2.get(k).getValue();
-                        // currentCol = colValue1;
-                        // added = (value1) + (value2);
-                    }else{
-                        added = currentRow1.get(j).getValue();
+                       // System.out.println(value1+"|"+value2);
                         currentCol = colValue1;
-                        
+                        added = (value1) + (value2);
+                        Entry newValue = new Entry(currentCol, added);
+                        //System.out.println("add|"+i+"  col1|"+colValue1+"  col2|"+colValue2+"|"+added);
+                        //System.out.println(l+"|"+currentCol+"|"+added);
+                        cr.set(l,newValue);
+
+                    }
+                    else{
+                        added = currentRow2.get(k).getValue();
+                        currentCol = colValue1;
+                        Entry newValue = new Entry(currentCol, added);
+                        cr.add(newValue);
+                        tempMatrix.entries.set(i,cr);
+                        // //Collections.sort(cr, SparseMatrix.entryCheck);
+                        // System.out.println(currentCol+"|"+added);
+                        // //System.out.println("not|"+i+"  col1|"+colValue1+"  col2|"+colValue2+"|"+added);
                         
                     }
-                    //System.out.println(colSet+added);
+                    tempMatrix.entries.set(i,cr);
+                }
+                //Collections.sort(cr, SparseMatrix.entryCheck);
+                
 
-                }     
-                Entry newValue = new Entry(currentCol, added);
-                cr.add(newValue);
-                System.out.println(currentCol+"|"+added);
-            }
-            tempMatrix.entries.set(i,cr);
+            }     
+
         }
 
 
@@ -514,7 +534,7 @@ public class SparseMatrix
 					currentCol = (entryIdx < currentRow.size()) ? currentRow.get(entryIdx).getColumn() : (-1); 
 				}
 				else {
-					System.out.print(0);
+					System.out.print("o");
 				}
 				
 				System.out.print(" ");
