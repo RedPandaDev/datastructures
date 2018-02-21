@@ -297,19 +297,17 @@ public class SparseMatrix
             entries = null;
         }
     }
+
     public static Comparator<Entry> entryCheck = new Comparator<Entry>() {
 
-    public int compare(Entry s1, Entry s2) {
+        public int compare(Entry e1, Entry e2) {
 
-       int rollno1 = s1.getValue();
-       int rollno2 = s2.getValue();
+           int entry1 = e1.getValue();
+           int entry2 = e2.getValue();
 
-       /*For ascending order*/
-       return rollno1-rollno2;
-
-       /*For descending order*/
-       //rollno2-rollno1;
-   }};
+           return entry1-entry2;
+       }
+    };
     // Default constructor
     public SparseMatrix()
     {
