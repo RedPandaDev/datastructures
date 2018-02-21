@@ -402,11 +402,11 @@ public class SparseMatrix
             }
             
             tempMatrix.entries.set(i,cr);
-
-            for(int k = 0;  k < size2; k++) {
+            System.out.println(i);
+            // Only goes through selected rows
+            for(int k = 0;  k < size2; k++) {;
                 for (int l = 0; l< size1 ; l++ ) {
                     cr = tempMatrix.entries.get(i);
-                
                     colValue1 = currentRow1.get(l).getColumn();
                     colValue2 = currentRow2.get(k).getColumn();
                     
@@ -420,25 +420,22 @@ public class SparseMatrix
                         //System.out.println("add|"+i+"  col1|"+colValue1+"  col2|"+colValue2+"|"+added);
                         //System.out.println(l+"|"+currentCol+"|"+added);
                         cr.set(l,newValue);
-
                     }
                     else{
+                        currentCol = colValue2;
                         added = currentRow2.get(k).getValue();
-                        currentCol = colValue1;
                         Entry newValue = new Entry(currentCol, added);
+                        //System.out.println("add|"+i+"  col1|"+colValue1+"  col2|"+colValue2+"|"+added);
+                        //System.out.println(i+"|"+currentCol+"|"+added);
                         cr.add(newValue);
-                        tempMatrix.entries.set(i,cr);
-                        // //Collections.sort(cr, SparseMatrix.entryCheck);
-                        // System.out.println(currentCol+"|"+added);
-                        // //System.out.println("not|"+i+"  col1|"+colValue1+"  col2|"+colValue2+"|"+added);
-                        
+
                     }
-                    tempMatrix.entries.set(i,cr);
                 }
                 //Collections.sort(cr, SparseMatrix.entryCheck);
-                
+                //tempMatrix.entries.set(i,cr);
+            }    
 
-            }     
+
 
         }
 
@@ -534,7 +531,7 @@ public class SparseMatrix
 					currentCol = (entryIdx < currentRow.size()) ? currentRow.get(entryIdx).getColumn() : (-1); 
 				}
 				else {
-					System.out.print("o");
+					System.out.print(".");
 				}
 				
 				System.out.print(" ");
