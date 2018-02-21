@@ -284,15 +284,6 @@ public class SparseMatrix
             int fromCol = 0;
             int maxCols = numColumns();
             int maxRows = numRows();
-            for (int rowMax = 0; rowMax < maxRows; rowMax++){
-                ArrayList<Entry> cr = new ArrayList();
-                for (int colsMax = 0; colsMax < maxCols; colsMax++){
-                    Entry blank = new Entry(colsMax,0);
-                    cr.add(blank);
-                }
-                entries.set(rowMax,cr);
-            }
-
 
             for (int loopstart = 0; loopstart < allCol.size(); loopstart++){
                 int rowVal = allRow.get(loopstart);
@@ -301,10 +292,13 @@ public class SparseMatrix
 
                 Entry member = new Entry(colVal,valVal);
                 ArrayList<Entry> cr = new ArrayList();
-                cr = entries.get(rowVal);
-
-                cr.set(colVal,member);
-                entries.set(rowVal,cr);           
+                if (lastRow == rowVal) {
+                    cr = entries.get(rowVal);
+                    
+                }
+                cr.add(member);
+                entries.set(rowVal,cr);
+                lastRow = rowVal;           
 
                 }  
 
