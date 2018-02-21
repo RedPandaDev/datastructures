@@ -293,7 +293,7 @@ public class SparseMatrix
             entries = null;
         }
     }
-
+    // Sorts entries in a row in case of entries being added in a random order
     public static Comparator<Entry> entryCheck = new Comparator<Entry>() {
 
         public int compare(Entry e1, Entry e2) {
@@ -383,6 +383,7 @@ public class SparseMatrix
                 int added = 0;
                 int colValue1 = 0;
                 int colValue2 = 0;
+                int colSet = 0;
                 
                 colValue1 = currentRow1.get(j).getColumn();
                 for(int k = 0;  k < size2; k++) {
@@ -391,17 +392,18 @@ public class SparseMatrix
                     if (colValue1 == colValue2) {
                         value1 = currentRow1.get(j).getValue();
                         value2 = currentRow2.get(k).getValue();
+                        colSet = colValue1;
                     }
-                }
-
                 
+                    
+                }  
                 if (value1 != 0 || value2 != 0){
                     added = (value1) + (value2);
-                    System.out.println(value1+" + "+value2+" = "+added);
-                    Entry newValue = new Entry(j, (added));
+                    System.out.println(colSet+ " | "+ value1+" + "+value2+" = "+added);
+                    Entry newValue = new Entry(colSet, (added));
 
                     currentRow2.set(j,newValue);
-                }       
+                }     
             }
             tempMatrix.entries.set(i,currentRow2);
         }
