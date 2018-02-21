@@ -228,13 +228,7 @@ public class SparseMatrix
                 System.out.println("Matrix1 + Matrix2 =");
                 mat_sum1.print();
                 SparseMatrix mat_sum2 = mat1.add(mat2);
-                
-                System.out.println("Matrix1 + Matrix2 =");
-                mat_sum1.print();
-                System.out.println();
-                System.out.println("(Matrix1 + Matrix2)+m2 =");
-                mat_sum2.print();
-                System.out.println();
+
             }
             //End remove
     }
@@ -252,11 +246,6 @@ public class SparseMatrix
 	        int numRows = sc.nextInt();
 	        numCols = sc.nextInt();
 	        entries = new ArrayList< ArrayList<Entry> >();
-            ArrayList<Integer> allRow = new ArrayList();
-            ArrayList<Integer> allCol = new ArrayList();
-            ArrayList<Integer> allVal = new ArrayList();
-            int step = 0;
-
 	        
 	        for(int i = 0; i < numRows; ++ i) {
 	        		entries.add(null);
@@ -293,6 +282,24 @@ public class SparseMatrix
             entries = null;
         }
     }
+    public void loadBlank(int row, int col)
+    {
+        try
+        {
+            numCols = col;
+            entries = new ArrayList< ArrayList<Entry> >();
+            
+            for(int i = 0; i < row; ++ i) {
+                    entries.add(null);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            numCols = 0;
+            entries = null;
+        }
+    }
+
     // Sorts entries in a row in case of entries being added in a random order
     public static Comparator<Entry> entryCheck = new Comparator<Entry>() {
 
@@ -359,17 +366,22 @@ public class SparseMatrix
     // Adding two matrices  
     public SparseMatrix add(SparseMatrix M)
     {   // print() prints the first array if you do M.print() prints second array.
-        SparseMatrix tempMatrix = M;
-
+        SparseMatrix tempMatrix = new SparseMatrix();
         int numRows = entries.size();
+        tempMatrix.loadBlank(numRows, numCols);
+        // Gets each row
         for(int i = 0; i < numRows; i++)
         {   
             int size1 = 0;
             int size2 = 0;
 
+            ArrayList<Entry> cr = new ArrayList();
+            // Saves row for each matrix
             ArrayList<Entry> currentRow1 = entries.get(i);
             ArrayList<Entry> currentRow2 = M.entries.get(i);
+
             int currentCol = -1;
+
             if(currentRow1 != null && (!currentRow1.isEmpty())) {
                 size1 = currentRow1.size();
             }
@@ -383,29 +395,31 @@ public class SparseMatrix
                 int added = 0;
                 int colValue1 = 0;
                 int colValue2 = 0;
-                int colSet = 0;
-                
+          
+
                 colValue1 = currentRow1.get(j).getColumn();
                 for(int k = 0;  k < size2; k++) {
                     colValue2 = currentRow2.get(k).getColumn();
-
+                    
                     if (colValue1 == colValue2) {
                         value1 = currentRow1.get(j).getValue();
                         value2 = currentRow2.get(k).getValue();
-                        colSet = colValue1;
+                        // currentCol = colValue1;
+                        // added = (value1) + (value2);
+                    }else{
+                        added = currentRow1.get(j).getValue();
+                        currentCol = colValue1;
+                        
+                        
                     }
-                
-                    
-                }  
-                if (value1 != 0 || value2 != 0){
-                    added = (value1) + (value2);
-                    System.out.println(colSet+ " | "+ value1+" + "+value2+" = "+added);
-                    Entry newValue = new Entry(colSet, (added));
+                    //System.out.println(colSet+added);
 
-                    currentRow2.set(j,newValue);
                 }     
+                Entry newValue = new Entry(currentCol, added);
+                cr.add(newValue);
+                System.out.println(currentCol+"|"+added);
             }
-            tempMatrix.entries.set(i,currentRow2);
+            tempMatrix.entries.set(i,cr);
         }
 
 
