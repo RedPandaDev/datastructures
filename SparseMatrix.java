@@ -279,7 +279,7 @@ public class SparseMatrix
 
 
 	        }
-	        // Add your code here if approparite
+	        // Entries with 0 fill
             int lastRow = -1;
             int fromCol = 0;
             int maxCols = numColumns();
