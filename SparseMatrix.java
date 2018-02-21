@@ -276,31 +276,19 @@ public class SparseMatrix
                     allRow.add(row);
                     allVal.add(val);
                     step++;
+                    Entry member = new Entry(col,val);
+                    ArrayList<Entry> cr = new ArrayList();
 
-
-	        }
-	        // Entries with 0 fill
-            int lastRow = -1;
-            int fromCol = 0;
-            int maxCols = numColumns();
-            int maxRows = numRows();
-
-            for (int loopstart = 0; loopstart < allCol.size(); loopstart++){
-                int rowVal = allRow.get(loopstart);
-                int colVal = allCol.get(loopstart);
-                int valVal = allVal.get(loopstart);
-
-                Entry member = new Entry(colVal,valVal);
-                ArrayList<Entry> cr = new ArrayList();
-                if (lastRow == rowVal) {
-                    cr = entries.get(rowVal);
-                    
-                }
-                cr.add(member);
-                entries.set(rowVal,cr);
-                lastRow = rowVal;           
-
-                }  
+                    ArrayList<Entry> currentRow = entries.get(row);
+                    if (currentRow != null && (!currentRow.isEmpty())) {
+                        cr = currentRow;
+                            
+                    }
+                    cr.add(member);
+                    Collections.sort(cr, SparseMatrix.entryCheck);
+                    entries.set(row,cr);
+                    }  
+            
 
         }
         catch (Exception e) {
@@ -309,7 +297,19 @@ public class SparseMatrix
             entries = null;
         }
     }
-    
+    public static Comparator<Entry> entryCheck = new Comparator<Entry>() {
+
+    public int compare(Entry s1, Entry s2) {
+
+       int rollno1 = s1.getValue();
+       int rollno2 = s2.getValue();
+
+       /*For ascending order*/
+       return rollno1-rollno2;
+
+       /*For descending order*/
+       //rollno2-rollno1;
+   }};
     // Default constructor
     public SparseMatrix()
     {
@@ -371,35 +371,30 @@ public class SparseMatrix
         tempMatrix=M;
         System.out.println(tempMatrix == M);
 
-        int r = entries.size();
-        for(int i = 0; i < r; i++)
-        {
-            ArrayList<Entry> currentRow1 = M.entries.get(i);
-            
-        }
-
         int numRows = entries.size();
         for(int i = 0; i < numRows; i++)
-        {
+        {   
+            int size1 = 0;
+            int size2 = 0;
 
             ArrayList<Entry> currentRow1 = entries.get(i);
             ArrayList<Entry> currentRow2 = M.entries.get(i);
             int currentCol = -1;
             if(currentRow1 != null && (!currentRow1.isEmpty())) {
-                currentCol = currentRow1.get(i).getColumn();
+                size1 = currentRow1.size();
+            }
+            if(currentRow2 != null && (!currentRow2.isEmpty())) {
+                size2 = currentRow2.size();
             }
             
-            for(int j = 0;  j < numCols; j++) {
+            for(int j = 0;  j < size2; j++) {
                 int value1 = 0;
                 int value2 = 0;
                 int added = 0;
-                //System.out.println(j);
-                if (currentRow1.get(j) != null){
-                    value1 = currentRow1.get(j).getValue();
-                }
-                if (currentRow2.get(j) != null){
-                     value2 = currentRow2.get(j).getValue();
-                }
+                int rowValue = currentRow2.get(j).getValue();
+                System.out.println(i+"|"+j+"|"+rowValue);
+
+                
                 if (value1 != 0 || value2 != 0){
                     added = (value1) + (value2);
                     //System.out.println(value1+" + "+value2+" = "+added);
