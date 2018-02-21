@@ -271,21 +271,17 @@ public class SparseMatrix
 	        		
 	        		// Add your code here to add the element into data member entries
                     //entries
-
-                    allCol.add(col);
-                    allRow.add(row);
-                    allVal.add(val);
-                    step++;
                     Entry member = new Entry(col,val);
                     ArrayList<Entry> cr = new ArrayList();
 
                     ArrayList<Entry> currentRow = entries.get(row);
                     if (currentRow != null && (!currentRow.isEmpty())) {
                         cr = currentRow;
-                            
                     }
+
                     cr.add(member);
                     Collections.sort(cr, SparseMatrix.entryCheck);
+                    
                     entries.set(row,cr);
                     }  
             
@@ -302,8 +298,8 @@ public class SparseMatrix
 
         public int compare(Entry e1, Entry e2) {
 
-           int entry1 = e1.getValue();
-           int entry2 = e2.getValue();
+           int entry1 = e1.getColumn();
+           int entry2 = e2.getColumn();
 
            return entry1-entry2;
        }
@@ -363,11 +359,7 @@ public class SparseMatrix
     // Adding two matrices  
     public SparseMatrix add(SparseMatrix M)
     {   // print() prints the first array if you do M.print() prints second array.
-        SparseMatrix tempMatrix = new SparseMatrix();
-        System.out.println(tempMatrix == M);
-
-        tempMatrix=M;
-        System.out.println(tempMatrix == M);
+        SparseMatrix tempMatrix = M;
 
         int numRows = entries.size();
         for(int i = 0; i < numRows; i++)
@@ -385,17 +377,27 @@ public class SparseMatrix
                 size2 = currentRow2.size();
             }
             
-            for(int j = 0;  j < size2; j++) {
+            for(int j = 0;  j < size1; j++) {
                 int value1 = 0;
                 int value2 = 0;
                 int added = 0;
-                int rowValue = currentRow2.get(j).getValue();
-                System.out.println(i+"|"+j+"|"+rowValue);
+                int colValue1 = 0;
+                int colValue2 = 0;
+                
+                colValue1 = currentRow1.get(j).getColumn();
+                for(int k = 0;  k < size2; k++) {
+                    colValue2 = currentRow2.get(k).getColumn();
+
+                    if (colValue1 == colValue2) {
+                        value1 = currentRow1.get(j).getValue();
+                        value2 = currentRow2.get(k).getValue();
+                    }
+                }
 
                 
                 if (value1 != 0 || value2 != 0){
                     added = (value1) + (value2);
-                    //System.out.println(value1+" + "+value2+" = "+added);
+                    System.out.println(value1+" + "+value2+" = "+added);
                     Entry newValue = new Entry(j, (added));
 
                     currentRow2.set(j,newValue);
