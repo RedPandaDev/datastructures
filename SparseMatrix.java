@@ -375,11 +375,10 @@ public class SparseMatrix
             int size1 = 0;
             int size2 = 0;
 
-            ArrayList<Entry> cr = new ArrayList();
+            ArrayList<Entry> tempRow = new ArrayList();
             // Saves row for each matrix
             ArrayList<Entry> currentRow1 = entries.get(i);
             ArrayList<Entry> currentRow2 = M.entries.get(i);
-
             int currentCol = -1;
 
             if(currentRow1 != null && (!currentRow1.isEmpty())) {
@@ -398,15 +397,16 @@ public class SparseMatrix
                 currentCol = currentRow1.get(j).getColumn();
                 added = currentRow1.get(j).getValue();
                 Entry newValue = new Entry(currentCol, added);
-                cr.add(newValue);
+                tempRow.add(newValue);
             }
             
-            tempMatrix.entries.set(i,cr);
+            tempMatrix.entries.set(i,tempRow);
   
             // Only goes through selected rows
             for(int k = 0;  k < numCols; k++) {;
                 for (int l = 0; l< size2 ; l++ ) {
                     try{
+                        ArrayList<Entry> cr = new ArrayList();
                         cr = tempMatrix.entries.get(i);
                         colValue1 = currentRow1.get(l).getColumn();
                         colValue2 = currentRow2.get(k).getColumn();
@@ -423,20 +423,22 @@ public class SparseMatrix
                             cr.set(l,newValue);
                         }
                         else{
-                            currentCol = colValue2;
-                            added = currentRow2.get(k).getValue();
-                            Entry newValue = new Entry(currentCol, added);
+                            added = currentRow2.get(l).getValue();
+                            Entry newValue = new Entry(l, added);
                             //System.out.println("add|"+i+"  col1|"+colValue1+"  col2|"+colValue2+"|"+added);
-                            //System.out.println(i+"|"+currentCol+"|"+added);
-                            cr.add(newValue);
-
+                            //System.out.println(i+"|"+l+"|"+added);
+                            cr.add(newValue);                           
                         }
+
+                        tempMatrix.entries.set(i,cr);
+
                     }catch(Exception e){
 
                     }
+                    
                 }
                 //Collections.sort(cr, SparseMatrix.entryCheck);
-                tempMatrix.entries.set(i,cr);
+                
             }    
 
 
