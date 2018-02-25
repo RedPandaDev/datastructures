@@ -403,7 +403,6 @@ public class SparseMatrix
                 catch(Exception e){}
             }
             tempMatrix.entries.set(i,tempRow);
-                           // System.out.println(value1+"|"+value2);
 
             for(int j = 0;  j < numCols; j++) {
                 try{
