@@ -433,15 +433,30 @@ public class SparseMatrix
 
         for(int i = 0; i < numRows; i++){   
             
-            ArrayList<Entry> tempRow = new ArrayList<Entry>();
-
+            
             for (int j = 0; j < cols; j++){
-                Entry newVal = new Entry(j,j);
-                tempRow.add(newVal);
+                ArrayList<Entry> tempRow = new ArrayList<Entry>();
+                ArrayList<Entry> cr = entries.get(j);
+
+                if(cr != null && (!cr.isEmpty())) {
+                    int size = cr.size();
+                    for (int k = 0;k < size ; k++ ) {
+                        int newCol = cr.get(k).getColumn();
+                        int newValue = cr.get(k).getValue();
+
+                        if (tempMatrix.entries.get(newCol) != null) {
+                            tempRow = tempMatrix.entries.get(newCol);
+                        }
+
+                        Entry newVal = new Entry(j,newValue);
+                        tempRow.add(newVal);
+                        tempMatrix.entries.set(newCol,tempRow);
+                    }
+                }
+
+                
+
             }
-
-
-            tempMatrix.entries.set(i,tempRow);
 
         }
 
