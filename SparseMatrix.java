@@ -452,14 +452,9 @@ public class SparseMatrix
                         tempRow.add(newVal);
                         tempMatrix.entries.set(newCol,tempRow);
                     }
-                }
-
-                
-
+                }       
             }
-
         }
-
         return tempMatrix;
     }
     
@@ -543,7 +538,7 @@ public class SparseMatrix
 					currentCol = (entryIdx < currentRow.size()) ? currentRow.get(entryIdx).getColumn() : (-1); 
 				}
 				else {
-					System.out.print(".");
+					System.out.print(0);
 				}
 				
 				System.out.print(" ");
