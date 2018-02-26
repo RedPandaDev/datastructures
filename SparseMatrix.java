@@ -432,7 +432,7 @@ public class SparseMatrix
         tempMatrix.loadBlank(numRows, cols);
             
         for (int j = 0; j < cols; j++){
-            ArrayList<Entry> tempRow = new ArrayList<Entry>();
+            
             ArrayList<Entry> cr = entries.get(j);
 
             if(cr != null && (!cr.isEmpty())) {
@@ -441,14 +441,21 @@ public class SparseMatrix
                 for (int k = 0;k < size ; k++ ) {
                     int newCol = cr.get(k).getColumn();
                     int newValue = cr.get(k).getValue();
+                    ArrayList<Entry> tempRow = new ArrayList<Entry>();
 
-                    if (tempMatrix.entries.get(newCol) != null) {
+                    System.out.println("row| " + j +" Col|" + newCol +" Value|" + newValue);
+                    // Entry newVal = new Entry(j,newValue);
+                    // tempRow.add(newVal);
+                    // Collections.sort(tempRow, SparseMatrix.entryCheck);
+                    // tempMatrix.entries.set(newCol,tempRow);
+                    if (tempMatrix.entries.get(newCol)!= null) {
                         tempRow = tempMatrix.entries.get(newCol);
+                        
                     }
-                    Entry newVal = new Entry(j,newValue);
-                    tempRow.add(newVal);
-                    Collections.sort(tempRow, SparseMatrix.entryCheck);
+                    Entry transVal = new Entry (j, newValue);
+                    tempRow.add(transVal);
                     tempMatrix.entries.set(newCol,tempRow);
+
                 }
             }       
         }
