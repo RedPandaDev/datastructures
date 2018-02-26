@@ -365,7 +365,7 @@ public class SparseMatrix
     }
     
     // Adding two matrices  
-    public SparseMatrix add(SparseMatrix M)
+     public SparseMatrix add(SparseMatrix M)
     {   // print() prints the first array if you do M.print() prints second array.
         SparseMatrix tempMatrix = new SparseMatrix();
         int numRows = entries.size();
@@ -393,29 +393,56 @@ public class SparseMatrix
                 int added = 0;
                 int colValue1 = 0;
                 int colValue2 = 0;
-
-            // Loads matrix 1 values into temp matrix
+            
             for(int j = 0;  j < size1; j++) {
-                colValue1 = currentRow1.get(j).getColumn();
-                value1 = currentRow1.get(j).getValue();
-                Entry newValue = new Entry(colValue1, value1);
+                currentCol = currentRow1.get(j).getColumn();
+                added = currentRow1.get(j).getValue();
+                Entry newValue = new Entry(currentCol, added);
                 tempRow.add(newValue);
             }
+            
             tempMatrix.entries.set(i,tempRow);
-            // end
+  
+            // Only goes through selected rows
+            for(int k = 0;  k < numCols; k++) {
+                ArrayList<Entry> cr = new ArrayList();
+                for (int l = 0; l< size2 ; l++ ) {
+                    try{
+                        
+                        cr = tempMatrix.entries.get(i);
+                        colValue1 = currentRow1.get(l).getColumn();
+                        colValue2 = currentRow2.get(k).getColumn();
+                        
+                        if (colValue1 == colValue2) {
+                            value1 = currentRow1.get(l).getValue();
+                            value2 = currentRow2.get(k).getValue();
+                           // System.out.println(value1+"|"+value2);
+                            currentCol = colValue1;
+                            added = (value1) + (value2);
+                            Entry newValue = new Entry(currentCol, added);
+                            //System.out.println("add|"+i+"  col1|"+colValue1+"  col2|"+colValue2+"|"+added);
+                            //System.out.println(l+"|"+currentCol+"|"+added);
+                            cr.set(l,newValue);
+                        }
+                        else{
+                            added = currentRow2.get(l).getValue();
+                            Entry newValue = new Entry(l, added);
+                            //System.out.println("add|"+i+"  col1|"+colValue1+"  col2|"+colValue2+"|"+added);
+                            //System.out.println(i+"|"+l+"|"+added);
+                            cr.add(newValue);                           
+                        }
 
-            for(int j = 0;  j < size2; j++) {
+                        tempMatrix.entries.set(i,cr);
 
-                colValue2 = currentRow2.get(j).getColumn();
-                value2 = currentRow2.get(j).getValue();
-                Entry newValue = new Entry(colValue2, value2);
-                // Need to somehow check if the same column value is in m1
-                tempRow.add(newValue);
+                    }catch(Exception e){
+
+                    }
+                    
+                    
+                }
+                //Collections.sort(cr, SparseMatrix.entryCheck);
                 
-
-            }
-            //Collections.sort(tempRow, SparseMatrix.entryCheck);
-            tempMatrix.entries.set(i,tempRow);
+            }    
 
 
 
