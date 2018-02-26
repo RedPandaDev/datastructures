@@ -282,6 +282,7 @@ public class SparseMatrix
             entries = null;
         }
     }
+    // Creates a new blank matrix of speicified number of rows and columns
     public void loadBlank(int row, int col)
     {
         try
@@ -392,28 +393,29 @@ public class SparseMatrix
                 int added = 0;
                 int colValue1 = 0;
                 int colValue2 = 0;
-            
-            for(int j = 0;  j < numCols; j++) {
-                try{
-                    colValue1 = currentRow1.get(j).getColumn();
-                    value1 = currentRow1.get(j).getValue();
-                    Entry newValue = new Entry(colValue1, value1);
-                    tempRow.add(newValue);
-                }
-                catch(Exception e){}
+
+            // Loads matrix 1 values into temp matrix
+            for(int j = 0;  j < size1; j++) {
+                colValue1 = currentRow1.get(j).getColumn();
+                value1 = currentRow1.get(j).getValue();
+                Entry newValue = new Entry(colValue1, value1);
+                tempRow.add(newValue);
+            }
+            tempMatrix.entries.set(i,tempRow);
+            // end
+
+            for(int j = 0;  j < size2; j++) {
+
+                colValue2 = currentRow2.get(j).getColumn();
+                value2 = currentRow2.get(j).getValue();
+                Entry newValue = new Entry(colValue2, value2);
+                // Need to somehow check if the same column value is in m1
+                tempRow.add(newValue);
+                Collections.sort(tempRow, SparseMatrix.entryCheck);
+
             }
             tempMatrix.entries.set(i,tempRow);
 
-            for(int j = 0;  j < numCols; j++) {
-                try{
-                    colValue1 = currentRow1.get(j).getColumn();
-                    value1 = currentRow1.get(j).getValue();
-                    Entry newValue = new Entry(colValue1, value1);
-                    tempRow.add(newValue);
-                }
-                catch(Exception e){}
-            }
-            tempMatrix.entries.set(i,tempRow);
 
 
         }
