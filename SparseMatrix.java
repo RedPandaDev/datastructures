@@ -443,11 +443,6 @@ public class SparseMatrix
                     int newValue = cr.get(k).getValue();
                     ArrayList<Entry> tempRow = new ArrayList<Entry>();
 
-                    System.out.println("row| " + j +" Col|" + newCol +" Value|" + newValue);
-                    // Entry newVal = new Entry(j,newValue);
-                    // tempRow.add(newVal);
-                    // Collections.sort(tempRow, SparseMatrix.entryCheck);
-                    // tempMatrix.entries.set(newCol,tempRow);
                     if (tempMatrix.entries.get(newCol)!= null) {
                         tempRow = tempMatrix.entries.get(newCol);
                         
