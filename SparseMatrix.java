@@ -502,6 +502,37 @@ public class SparseMatrix
     public void multiplyBy(int scalar)
     {
     		// Add your code here
+        // Gets each row
+        for(int i = 0; i <  entries.size(); i++)
+        {   
+            int size1 = 0;
+            int size2 = 0;
+
+            ArrayList<Entry> tempRow = new ArrayList();
+            // Saves row for each matrix
+            ArrayList<Entry> currentRow1 = entries.get(i);
+
+            int currentCol = -1;
+
+            if(currentRow1 != null && (!currentRow1.isEmpty())) {
+                size1 = currentRow1.size();
+            }
+                
+
+            // Loads matrix 1 values into temp matrix
+            for(int j = 0;  j < size1; j++) {
+                int value1 = 0;
+                int colValue1 = 0;
+                colValue1 = currentRow1.get(j).getColumn();
+                value1 = currentRow1.get(j).getValue() * scalar;
+                //System.out.println(value1);
+                Entry newValue = new Entry(colValue1, value1);
+                tempRow.add(newValue);
+            }
+            entries.set(i,tempRow);
+            // end
+        }
+
     }
     
     // Number of rows of the matrix
