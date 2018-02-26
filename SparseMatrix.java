@@ -376,11 +376,10 @@ public class SparseMatrix
             int size1 = 0;
             int size2 = 0;
 
-            ArrayList<Entry> cr = new ArrayList();
+            ArrayList<Entry> tempRow = new ArrayList();
             // Saves row for each matrix
             ArrayList<Entry> currentRow1 = entries.get(i);
             ArrayList<Entry> currentRow2 = M.entries.get(i);
-
             int currentCol = -1;
 
             if(currentRow1 != null && (!currentRow1.isEmpty())) {
@@ -397,7 +396,6 @@ public class SparseMatrix
 
             // Loads matrix 1 values into temp matrix
             for(int j = 0;  j < size1; j++) {
-<<<<<<< HEAD
                 colValue1 = currentRow1.get(j).getColumn();
                 value1 = currentRow1.get(j).getValue();
                 Entry newValue = new Entry(colValue1, value1);
@@ -418,51 +416,6 @@ public class SparseMatrix
             }
             //Collections.sort(tempRow, SparseMatrix.entryCheck);
             tempMatrix.entries.set(i,tempRow);
-=======
-                currentCol = currentRow1.get(j).getColumn();
-                added = currentRow1.get(j).getValue();
-                Entry newValue = new Entry(currentCol, added);
-                cr.add(newValue);
-            }
-            
-            tempMatrix.entries.set(i,cr);
-  
-            // Only goes through selected rows
-            for(int k = 0;  k < numCols; k++) {;
-                for (int l = 0; l< size2 ; l++ ) {
-                    try{
-                        cr = tempMatrix.entries.get(i);
-                        colValue1 = currentRow1.get(l).getColumn();
-                        colValue2 = currentRow2.get(k).getColumn();
-                        
-                        if (colValue1 == colValue2) {
-                            value1 = currentRow1.get(l).getValue();
-                            value2 = currentRow2.get(k).getValue();
-                           // System.out.println(value1+"|"+value2);
-                            currentCol = colValue1;
-                            added = (value1) + (value2);
-                            Entry newValue = new Entry(currentCol, added);
-                            //System.out.println("add|"+i+"  col1|"+colValue1+"  col2|"+colValue2+"|"+added);
-                            //System.out.println(l+"|"+currentCol+"|"+added);
-                            cr.set(l,newValue);
-                        }
-                        else{
-                            currentCol = colValue2;
-                            added = currentRow2.get(k).getValue();
-                            Entry newValue = new Entry(currentCol, added);
-                            //System.out.println("add|"+i+"  col1|"+colValue1+"  col2|"+colValue2+"|"+added);
-                            //System.out.println(i+"|"+currentCol+"|"+added);
-                            cr.add(newValue);
-
-                        }
-                    }catch(Exception e){
-
-                    }
-                }
-                //Collections.sort(cr, SparseMatrix.entryCheck);
-                tempMatrix.entries.set(i,cr);
-            }    
->>>>>>> parent of 8aab272... Version 1 adding
 
 
 
