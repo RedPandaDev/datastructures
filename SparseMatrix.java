@@ -429,8 +429,10 @@ public class SparseMatrix
         SparseMatrix tempMatrix = new SparseMatrix();
         int numRows = numCols;
         int cols = entries.size();
+        // Creates a blank matrix of correct size
         tempMatrix.loadBlank(numRows, cols);
-            
+        
+        // Loops through old matrix rows
         for (int j = 0; j < cols; j++){
             
             ArrayList<Entry> cr = entries.get(j);
@@ -442,11 +444,12 @@ public class SparseMatrix
                     int newCol = cr.get(k).getColumn();
                     int newValue = cr.get(k).getValue();
                     ArrayList<Entry> tempRow = new ArrayList<Entry>();
-
+                    // If transposed matrix already has a value, reads it into tempRow
                     if (tempMatrix.entries.get(newCol)!= null) {
                         tempRow = tempMatrix.entries.get(newCol);
                         
                     }
+                    // Puts the value from the old matrix to the correct place in new matrix
                     Entry transVal = new Entry (j, newValue);
                     tempRow.add(transVal);
                     tempMatrix.entries.set(newCol,tempRow);
