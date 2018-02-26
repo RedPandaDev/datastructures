@@ -411,9 +411,10 @@ public class SparseMatrix
                 Entry newValue = new Entry(colValue2, value2);
                 // Need to somehow check if the same column value is in m1
                 tempRow.add(newValue);
-                Collections.sort(tempRow, SparseMatrix.entryCheck);
+                
 
             }
+            //Collections.sort(tempRow, SparseMatrix.entryCheck);
             tempMatrix.entries.set(i,tempRow);
 
 
