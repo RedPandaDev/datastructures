@@ -406,7 +406,7 @@ public class SparseMatrix
             // Only goes through selected rows
             for(int k = 0;  k < numCols; k++) {
                 ArrayList<Entry> cr = new ArrayList();
-                for (int l = 0; l< size2 ; l++ ) {
+                for (int l = 0; l< size1 ; l++ ) {
                     try{
                         
                         cr = tempMatrix.entries.get(i);
