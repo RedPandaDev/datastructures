@@ -388,65 +388,46 @@ public class SparseMatrix
             if(currentRow2 != null && (!currentRow2.isEmpty())) {
                 size2 = currentRow2.size();
             }
-                int value1 = 0;
-                int value2 = 0;
-                int added = 0;
-                int colValue1 = 0;
-                int colValue2 = 0;
             
             for(int j = 0;  j < size1; j++) {
                 currentCol = currentRow1.get(j).getColumn();
-                added = currentRow1.get(j).getValue();
+                int added = currentRow1.get(j).getValue();
                 Entry newValue = new Entry(currentCol, added);
                 tempRow.add(newValue);
             }
-            
+            tempMatrix.entries.set(i,tempRow);
+
+            for(int j = 0;  j < size2; j++) {
+                currentCol = currentRow2.get(j).getColumn();
+                int added = currentRow2.get(j).getValue();
+                boolean found = false;
+                for(int k = 0;  k < size1; k++) {
+                    int currentCol2 = currentRow1.get(k).getColumn();
+                    int added2 = currentRow1.get(k).getValue();
+
+                    if (currentCol == currentCol2) {
+                        added = added + added2;    
+                        Entry newValue = new Entry(currentCol, added);
+                        tempRow.set(k, newValue);   
+                        found = true;                 
+                    }
+                    
+                }
+                if (found == false) {
+                    Entry newValue = new Entry(currentCol, added);
+                    tempRow.add(newValue);
+                }
+                
+            }
+            Collections.sort(tempRow, SparseMatrix.entryCheck);
             tempMatrix.entries.set(i,tempRow);
   
             // Only goes through selected rows
-            for(int k = 0;  k < numCols; k++) {
-                ArrayList<Entry> cr = new ArrayList();
-                for (int l = 0; l< size1 ; l++ ) {
-                    try{
-                        
-                        cr = tempMatrix.entries.get(i);
-                        colValue1 = currentRow1.get(l).getColumn();
-                        colValue2 = currentRow2.get(k).getColumn();
-                        
-                        if (colValue1 == colValue2) {
-                            value1 = currentRow1.get(l).getValue();
-                            value2 = currentRow2.get(k).getValue();
-                           // System.out.println(value1+"|"+value2);
-                            currentCol = colValue1;
-                            added = (value1) + (value2);
-                            Entry newValue = new Entry(currentCol, added);
-                            //System.out.println("add|"+i+"  col1|"+colValue1+"  col2|"+colValue2+"|"+added);
-                            //System.out.println(l+"|"+currentCol+"|"+added);
-                            cr.set(l,newValue);
-                        }
-                        else{
-                            added = currentRow2.get(l).getValue();
-                            Entry newValue = new Entry(l, added);
-                            //System.out.println("add|"+i+"  col1|"+colValue1+"  col2|"+colValue2+"|"+added);
-                            //System.out.println(i+"|"+l+"|"+added);
-                            cr.add(newValue);                           
-                        }
-
-                        tempMatrix.entries.set(i,cr);
-
-                    }catch(Exception e){
-
-                    }
                     
-                    
-                }
                 //Collections.sort(cr, SparseMatrix.entryCheck);
                 
             }    
 
-
-
-        }
 
 
         return tempMatrix;
