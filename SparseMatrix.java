@@ -473,9 +473,32 @@ public class SparseMatrix
     
     // Matrix-vector multiplication
     public DenseVector multiply(DenseVector v)
-    {
-    		// Add your code here
-        return v;
+    {   
+        //v.size() gives vector size
+        int numRows = entries.size();
+        // Output vectore
+        DenseVector multiplied = new DenseVector(numRows);
+        // loop through each row.
+        for(int i = 0; i < numRows; i++){
+            // sum all entries multiplied by vector v of same index as column
+            ArrayList<Entry> cr = entries.get(i);
+            int size = 0;
+
+            if(cr != null && (!cr.isEmpty())) {
+               size = cr.size();
+            }
+            int rowSum = 0;
+
+            for(int j = 0;  j < size; ++ j) {
+                int colIndex = cr.get(j).getColumn();
+                int valueIn = cr.get(j).getValue();
+                rowSum = rowSum + (valueIn * v.getElement(colIndex));
+                
+            }
+            multiplied.setElement(i,rowSum);
+
+        }
+        return multiplied;
     }
     
     // Count the number of non-zeros
