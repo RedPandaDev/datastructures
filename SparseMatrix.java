@@ -245,7 +245,7 @@ public class SparseMatrix
 	        Scanner sc = new Scanner(file);
 	        int numRows = sc.nextInt();
 	        numCols = sc.nextInt();
-	        entries = new ArrayList< ArrayList<Entry> >();
+	        entries = new ArrayList<ArrayList<Entry>>();
 	        
 	        for(int i = 0; i < numRows; ++ i) {
 	        		entries.add(null);
@@ -261,7 +261,7 @@ public class SparseMatrix
 	        		// Add your code here to add the element into data member entries
                     //entries
                     Entry member = new Entry(col,val);
-                    ArrayList<Entry> cr = new ArrayList();
+                    ArrayList<Entry> cr = new ArrayList<Entry>();
 
                     ArrayList<Entry> currentRow = entries.get(row);
                     if (currentRow != null && (!currentRow.isEmpty())) {
@@ -288,7 +288,7 @@ public class SparseMatrix
         try
         {
             numCols = col;
-            entries = new ArrayList< ArrayList<Entry> >();
+            entries = new ArrayList<ArrayList<Entry> >();
             
             for(int i = 0; i < row; ++ i) {
                     entries.add(null);
@@ -376,7 +376,7 @@ public class SparseMatrix
             int size1 = 0;
             int size2 = 0;
 
-            ArrayList<Entry> tempRow = new ArrayList();
+            ArrayList<Entry> tempRow = new ArrayList<Entry>();
             // Saves row for each matrix
             ArrayList<Entry> currentRow1 = entries.get(i);
             ArrayList<Entry> currentRow2 = M.entries.get(i);
@@ -540,7 +540,7 @@ public class SparseMatrix
             int size1 = 0;
             int size2 = 0;
 
-            ArrayList<Entry> tempRow = new ArrayList();
+            ArrayList<Entry> tempRow = new ArrayList<Entry>();
             // Saves row for each matrix
             ArrayList<Entry> currentRow1 = entries.get(i);
 
